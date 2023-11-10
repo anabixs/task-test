@@ -101,6 +101,15 @@ li {
   cursor: pointer;
   border-radius: 15%;
 }
-.main-nav > li:hover {
+/* .main-nav > li:hover {
   background-color: #718daa;
+} */
+.nav-link:hover {
+  background-color: #718daa;
+}
+.nav-link-active {
+  background-color: #47596b;
+}
+.podcomment > ul {
+  padding-left: 30px;
 }

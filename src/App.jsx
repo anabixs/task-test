@@ -6,6 +6,7 @@ import Comments from "./components/Comments";
 export default function App() {
   const [route, setRoute] = useState("/");
   const [selectedItemId, setSelectedItemId] = useState(null);
+  const [activePage, setActivePage] = useState("");
 
   const navigateTo = (newRoute) => {
     setRoute(newRoute);
@@ -18,14 +19,47 @@ export default function App() {
     <>
       <header className="header">
         <ul className="main-nav">
-          <li>
-            <span onClick={() => navigateTo("/news")}>News</span>
+          <li
+            className={`nav-link ${
+              activePage === "news" ? "nav-link-active" : ""
+            }`}
+          >
+            <span
+              onClick={() => {
+                navigateTo("/news");
+                setActivePage("news");
+              }}
+            >
+              News
+            </span>
           </li>
-          <li>
-            <span onClick={() => navigateTo("/shows")}>Shows</span>
+          <li
+            className={`nav-link ${
+              activePage === "shows" ? "nav-link-active" : ""
+            }`}
+          >
+            <span
+              onClick={() => {
+                navigateTo("/shows");
+                setActivePage("shows");
+              }}
+            >
+              Shows
+            </span>
           </li>
-          <li>
-            <span onClick={() => navigateTo("/jobs")}>Jobs</span>
+          <li
+            className={`nav-link ${
+              activePage === "jobs" ? "nav-link-active" : ""
+            }`}
+          >
+            <span
+              onClick={() => {
+                navigateTo("/jobs");
+                setActivePage("jobs");
+              }}
+            >
+              Jobs
+            </span>
           </li>
         </ul>
       </header>

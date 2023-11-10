@@ -5,6 +5,7 @@ export default function Table({ apiEndpoint, onItemSelect }) {
   const [list, setList] = useState([]);
   const [sortColumn, setSortColumn] = useState(null);
   const [sortDirection, setSortDirection] = useState(1);
+  const [isLoaded, setisLoaded] = useState(false);
   const tableStyle = {
     borderCollapse: "collapse",
     width: "100%",
@@ -23,6 +24,7 @@ export default function Table({ apiEndpoint, onItemSelect }) {
       .get(apiEndpoint)
       .then((response) => {
         setList(response.data);
+        setisLoaded(true);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -61,37 +63,45 @@ export default function Table({ apiEndpoint, onItemSelect }) {
     const options = { weekday: "short", month: "short", day: "numeric" };
     return date.toLocaleDateString("en-US", options);
   };
+  console.log(list);
   return (
-    <table style={tableStyle}>
-      <thead>
-        <tr>
-          <th style={cellStyle} onClick={() => handleSort("id")}>
-            id
-          </th>
-          <th style={cellStyle} onClick={() => handleSort("time")}>
-            Time
-          </th>
-          <th style={cellStyle} onClick={() => handleSort("title")}>
-            Title
-          </th>
-          <th style={cellStyle} onClick={() => handleSort("domain")}>
-            Domain
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {sortedList.map((note) => (
-          <tr key={note.id}>
-            <td style={cellStyle} onClick={() => handleItemSelect(note.id)}>
-              {note.id}
-            </td>
-            <td style={cellStyle}>{formatDate(note.time)}</td>
-            <td style={cellStyle}>{note.title}</td>
-            <td style={cellStyle}>{note.domain}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <>
+      {!isLoaded && <p>Loading...</p>}
+      {isLoaded && list <= 0 ? (
+        <h2>No data</h2>
+      ) : (
+        <table style={tableStyle}>
+          <thead>
+            <tr>
+              <th style={cellStyle} onClick={() => handleSort("id")}>
+                id
+              </th>
+              <th style={cellStyle} onClick={() => handleSort("time")}>
+                Time
+              </th>
+              <th style={cellStyle} onClick={() => handleSort("title")}>
+                Title
+              </th>
+              <th style={cellStyle} onClick={() => handleSort("domain")}>
+                Domain
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedList.map((note) => (
+              <tr key={note.id}>
+                <td style={cellStyle} onClick={() => handleItemSelect(note.id)}>
+                  {note.id}
+                </td>
+                <td style={cellStyle}>{formatDate(note.time)}</td>
+                <td style={cellStyle}>{note.title}</td>
+                <td style={cellStyle}>{note.domain}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </>
   );
 }
 Table.propTypes = {

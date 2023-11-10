@@ -66,10 +66,7 @@ export default function Table({ apiEndpoint, onItemSelect }) {
   console.log(list);
   return (
     <>
-      {!isLoaded && <p>Loading...</p>}
-      {isLoaded && list <= 0 ? (
-        <h2>No data</h2>
-      ) : (
+      {isLoaded ? (
         <table style={tableStyle}>
           <thead>
             <tr>
@@ -100,6 +97,8 @@ export default function Table({ apiEndpoint, onItemSelect }) {
             ))}
           </tbody>
         </table>
+      ) : (
+        <p>Loading...</p>
       )}
     </>
   );

@@ -6,7 +6,7 @@ import Comments from "./components/Comments";
 export default function App() {
   const [route, setRoute] = useState("/");
   const [selectedItemId, setSelectedItemId] = useState(null);
-  const [activePage, setActivePage] = useState("");
+  const [activePage, setActivePage] = useState("news");
 
   const navigateTo = (newRoute) => {
     setRoute(newRoute);
